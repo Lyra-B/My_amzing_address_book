@@ -6,6 +6,10 @@ module MyAmazingAddressBook
 
     enable :sessions
 
+    get '/' do
+      "This is the homepage"
+    end
+
     ##
     # Caching support.
     #
