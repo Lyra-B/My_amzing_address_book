@@ -8,6 +8,8 @@ module MyAmazingAddressBook
 
     get '/' do
       "This is the homepage"
+      # def show_people
+      # end
     end
 
     ##

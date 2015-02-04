@@ -1,0 +1,17 @@
+<html>
+<head>
+	<title><%=person.first_name%></title>
+</head>
+<body>
+	<table>
+	
+<%=
+@person.attributes.map{|key,value|
+	"<th>#{key}</th>}"}.join("")
+
+@person.attributes.map{|key,value|
+	"<td>#{value}</td>}"}.join("")
+	%>
+	</table>
+</body>
+</html>

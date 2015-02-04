@@ -24,7 +24,9 @@ gem 'rack-test', :require => 'rack/test', :group => 'test'
 
 # Padrino Stable Gem
 gem 'padrino', '0.12.4'
+gem 'pry'
 
+gem 'database_cleaner'
 # Or Padrino Edge
 # gem 'padrino', :github => 'padrino/padrino-framework'
 
