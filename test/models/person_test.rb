@@ -17,8 +17,8 @@ describe "Person Model" do
   end
 
   it 'should show all the people in the addressbook' do
-	  @person = Person.create(:first_name => "Glykeria")
-	  @person_two = Person.create(:first_name => "Dan")
+	  @person = Person.create(:first_name => "Glykeria", :last_name => "Peppa", :twitter => "@glykeriape", :phone => '12345677788', :email => "glykeriapeppa@gmail.com")
+	  @person_two = Person.create(:first_name => "Dan", :last_name => "Steele", :twitter => "@dansteele", :phone => '34567890986', :email => "dansteele@email.com")
 	  assert_equal 2,Person.count
 	  get '/person/all' 
 	  assert last_response.ok?
@@ -37,7 +37,33 @@ describe "Person Model" do
 
   it "should create a form page" do
     get '/person/new'
-    assert_equal last_response.ok?
+    assert last_response.ok?
+  end
+
+  it "should create a new person" do
+    assert_equal 0, Person.count
+    post '/person/create', {:first_name => "Glykeria", :last_name => "Peppa", :twitter => "@glykeriape", :phone => '12345677788', :email => "glykeriapeppa@gmail.com" }
+    assert_equal 1, Person.count
+  end
+
+  it "should edit an existing person" do
+    Person.create(:first_name => "Glykeria", :last_name => "Peppa", :twitter => "@glykeriape", :phone => '12345677788', :email => "glykeriapeppa@gmail.com")
+    get '/person/edit/1'
+    assert last_response.ok?
+  end
+
+  it "should update the person" do
+    Person.create(:first_name => "Glykeria", :last_name => "Peppa", :twitter => "@glykeriape", :phone => '12345677788', :email => "glykeriapeppa@gmail.com")
+    assert_equal 1, Person.count
+    post '/person/update/1', {:first_name => "Maria"}
+    assert_equal "Maria", Person.find(1).first_name
+  end
+
+  it "should delete a person" do
+    Person.create(:first_name => "Glykeria", :last_name => "Peppa", :twitter => "@glykeriape", :phone => '12345677788', :email => "glykeriapeppa@gmail.com")
+    assert_equal 1, Person.count
+    post 'person/delete/1'
+    assert_equal 0, Person.count
   end
 
 

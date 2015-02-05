@@ -4,13 +4,14 @@
 </head>
 <body>
 	<table>
-<%=
-@person.attributes.map{|key,value|
-	"<th>#{key}</th>}"}.join("")
-
-@person.attributes.map{|key,value|
-	"<td>#{value}</td>}"}.join("")
-	%>
+		<%@person.attributes.keys.each do |header|%>
+			<th><%=header%></th>
+	  <%end%>
+  <tr>
+		<%@person.attributes.values.each do |value|%>
+			<td><%=value%></td>
+		<%end%>
+	</tr>
 	</table>
 </body>
 </html>

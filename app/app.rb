@@ -3,14 +3,18 @@ module MyAmazingAddressBook
     use ConnectionPoolManagement
     register Padrino::Mailer
     register Padrino::Helpers
+    
 
     enable :sessions
 
+    set :protect_from_csrf, false
+    
     get '/' do
       "This is the homepage"
       # def show_people
       # end
     end
+
 
     ##
     # Caching support.
