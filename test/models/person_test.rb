@@ -28,7 +28,7 @@ describe "Person Model" do
   end
 
   it 'should show an individual person in the addressbook' do
-  	@person = Person.create(:first_name => "Glykeria")
+  	@person = Person.create(:first_name => "Glykeria", :last_name => "Peppa", :twitter => "@glykeriape", :phone => '12345677788', :email => "glykeriapeppa@gmail.com")
   	get '/person/Glykeria' 
   	 #binding.pry
   	assert last_response.ok?

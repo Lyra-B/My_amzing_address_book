@@ -4,11 +4,9 @@ module MyAmazingAddressBook
     register Padrino::Mailer
     register Padrino::Helpers
     
-
+    set :protect_from_csrf, false
     enable :sessions
 
-    set :protect_from_csrf, false
-    
     get '/' do
       "This is the homepage"
       # def show_people

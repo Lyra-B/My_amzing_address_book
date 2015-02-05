@@ -1,24 +1,51 @@
-
+require 'pry'
 
 MyAmazingAddressBook::App.controllers :person do	
+  # before do
+  #   unless session[:logged_in] || request.path.start_with('/login')
+  #     flash[:notice] = "Username or password wrong.Try again!"
+  #     redirect '/login'
+  #   end
+  # end
+
+  # get '/login' do
+  #   flash[:notice]
+  # end
+
+  # post '/login' do
+  #   @user = User.find_by_username[params[:username]]
+  #   if @user && [params[:password]] == @user[:password]
+  #     session[:logged_in] = true
+  #   else
+  #     flash[:notice] = "Username or password wrong.Try again!"
+  #     redirect '/login'
+  #   end
+  # end
+
   get '/all' do
   	@people = Person.all
   	render '/people/all'
-  	#@person = Person.find_by_first_name(params[:first_name])
   end
 
   get '/new' do
+    @person = Person.new
   	render 'people/form_page'
 	end
 
 	post '/create' do
-		Person.create(params)
-	  redirect "/person/#{params[:first_name]}"
+    #binding.pry
+		@person = Person.create(params[:person])
+    #binding.pry
+    @person.save!
+    #binding.pry
+	  redirect "/person/#{@person.first_name}"
+   # flash[:notice] = "Person #{@person.first_name} "
 	end
 
   get '/edit/:id' do
     #binding.pry
     @person = Person.find(params[:id])
+    #binding.pry
     render '/people/edit'
   end
 
@@ -35,7 +62,6 @@ MyAmazingAddressBook::App.controllers :person do
   end
 
   get '/:first_name' do 
-  #this is not the homepage!It's '/person'
     @person = Person.find_by_first_name(params[:first_name])
     render '/people/person'
   end
