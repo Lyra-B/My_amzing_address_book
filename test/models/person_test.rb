@@ -28,8 +28,8 @@ describe "Person Model" do
   end
 
   it 'should show an individual person in the addressbook' do
-  	@person = Person.create(:first_name => "Glykeria", :last_name => "Peppa", :twitter => "@glykeriape", :phone => '12345677788', :email => "glykeriapeppa@gmail.com")
-  	get '/person/Glykeria' 
+  	@person = Person.create(:id => 1, :first_name => "Glykeria", :last_name => "Peppa", :twitter => "@glykeriape", :phone => '12345677788', :email => "glykeriapeppa@gmail.com")
+  	get '/person/1' 
   	 #binding.pry
   	assert last_response.ok?
   	last_response.body.must_match(/Glykeria/)
@@ -42,27 +42,27 @@ describe "Person Model" do
 
   it "should create a new person" do
     assert_equal 0, Person.count
-    post '/person/create', {:first_name => "Glykeria", :last_name => "Peppa", :twitter => "@glykeriape", :phone => '12345677788', :email => "glykeriapeppa@gmail.com" }
+    post '/person', {:first_name => "Glykeria", :last_name => "Peppa", :twitter => "@glykeriape", :phone => '12345677788', :email => "glykeriapeppa@gmail.com" }
     assert_equal 1, Person.count
   end
 
   it "should edit an existing person" do
     Person.create(:first_name => "Glykeria", :last_name => "Peppa", :twitter => "@glykeriape", :phone => '12345677788', :email => "glykeriapeppa@gmail.com")
-    get '/person/edit/1'
+    get '/person/1/edit'
     assert last_response.ok?
   end
 
   it "should update the person" do
     Person.create(:first_name => "Glykeria", :last_name => "Peppa", :twitter => "@glykeriape", :phone => '12345677788', :email => "glykeriapeppa@gmail.com")
     assert_equal 1, Person.count
-    post '/person/update/1', {:first_name => "Maria"}
+    put '/person/1', {:first_name => "Maria", :last_name => "Peppa", :twitter => "@glykeriape", :phone => '12345677788', :email => "glykeriapeppa@gmail.com"}
     assert_equal "Maria", Person.find(1).first_name
   end
 
   it "should delete a person" do
     Person.create(:first_name => "Glykeria", :last_name => "Peppa", :twitter => "@glykeriape", :phone => '12345677788', :email => "glykeriapeppa@gmail.com")
     assert_equal 1, Person.count
-    post 'person/delete/1'
+    delete 'person/1'
     assert_equal 0, Person.count
   end
 

@@ -1,0 +1,13 @@
+<% form_for @user, "/login" do |form|%>
+	<% field_set_tag do %>
+	  <%= form.label :username %>
+	  <%= form.text_field :username%>
+	<%end%>
+
+	<% field_set_tag do %>
+		<%= form.label :password %>
+	  <%= form.text_field :password%>
+	<%end%>
+	
+	<%= form.submit "Login"%>
+<%end%>

@@ -1,4 +1,5 @@
-<% form_for @person, "/person/update/#{@person.id}" do |form|%>
+<% form_for @person, url_for(:person, :update, :id => @person.id), :method => "put" do |form|%>
+
 	<% field_set_tag do %>
 	  <%= form.label :first_name %>
 	  <%= form.text_field :first_name%>
@@ -24,6 +25,6 @@
 	  <%= form.text_field :email %>
 	<%end%>
 	
-	<%= form.submit "Save"%>
+	<%= form.submit "Update"%>
 <%end%>
 

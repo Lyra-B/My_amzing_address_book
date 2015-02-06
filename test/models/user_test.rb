@@ -16,6 +16,9 @@ describe "User Model" do
     refute_nil @user
   end
 
+  it 'should have a login page' do
+  end
+
   after do
     DatabaseCleaner.clean
   end
