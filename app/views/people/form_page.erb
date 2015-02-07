@@ -1,6 +1,11 @@
 <% form_for @person, url_for(:person, :add_fields) do |form|%>
 
 	<%= partial 'people/form', :locals => {:form => form}%>
+	
+	<% field_set_tag do %>
+		<%= form.label :type %>
+	  <%= form.select(:type, :options => ['Instructor', 'Trainee']) %>
+	<%end%>
 
 	<%= form.submit "Next"%>
 

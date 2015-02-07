@@ -2,34 +2,7 @@
 
 	<%= partial 'people/hidden', :locals => {:form => form}%>
 
-  <% if @person.type == 'Trainee' %>
-  	<% field_set_tag do %>
-			<%= form.label :favourite_meal %>
-		  <%= form.text_field :favourite_meal %>
-		<% end %>
-
-		<% field_set_tag do %>
-			<%= form.label :position %>
-		  <%= form.text_field :position %>
-		<% end %>
-
-		<% field_set_tag do %>
-			<%= form.label :table_tennis_ladder %>
-		  <%= form.text_field :table_tennis_ladder %>
-		<% end %>
-
-  <% elsif @person.type == 'Instructor'%>
-
-		<% field_set_tag do %>
-			<%= form.label :favourite_language %>
-		  <%= form.text_field :favourite_language %>
-		<% end %>
-
-		<% field_set_tag do %>
-			<%= form.label :years_experience %>
-		  <%= form.text_field :years_experience %>
-		<% end %>
-  <% end %>
+  <%= partial 'people/type_specification', :locals => {:form => form, :person => @person} %>
 
   <%= form.submit "Save"%>
 
