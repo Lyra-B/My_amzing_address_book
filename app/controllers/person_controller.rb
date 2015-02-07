@@ -10,7 +10,7 @@ MyAmazingAddressBook::App.controllers :person do
   get :sign_up, :map => 'person/sign_up' do
     @user = User.new
     flash[:notice]
-    render :user_new
+    render :'people/user_new'
   end
 
   post :sign_up do
@@ -23,13 +23,13 @@ MyAmazingAddressBook::App.controllers :person do
   get :login do
     @user = User.new
     flash[:notice]
-    erb :login
+    render :'/people/login'
   end
 
   post :login do
-    binding.pry
+    #binding.pry
     @user = User.find_by_username(params[:user][:username])
-    binding.pry
+    #binding.pry
     if @user && params[:user][:password] == @user.password
       session[:logged_in] = true
       flash[:notice] = "You are successfully logged in"
@@ -42,17 +42,17 @@ MyAmazingAddressBook::App.controllers :person do
 
   get :users_all do
     @users = User.all
-    render :all_users
+    render :'people/all_users'
   end
 
   get :all do
   	@people = Person.all
-  	render :all #'/people/all'
+  	render :'people/all' #'/people/all'
   end
 
   get :new do
     @person = Person.new
-  	render :form_page
+  	render :'people/form_page'
 	end
 
 	post :create, :map => '' do
@@ -63,7 +63,7 @@ MyAmazingAddressBook::App.controllers :person do
 
   get :edit, :map => 'person/:id/edit' do
     @person = Person.find(params[:id])
-    render :edit
+    render :'people/edit'
   end
 
   put :update, :map => 'person/:id' do
@@ -79,8 +79,8 @@ MyAmazingAddressBook::App.controllers :person do
   end
 
 
-  get '/:id' do 
+  get :show, :map => 'person/:id' do 
     @person = Person.find(params[:id])
-    render :person
+    render :'people/person'
   end
 end
