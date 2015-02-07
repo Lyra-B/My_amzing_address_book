@@ -58,11 +58,12 @@ MyAmazingAddressBook::App.controllers :person do
   post :add_fields, :map => '/person/add_fields' do
     @person = Person.new(params[:person])
     #binding.pry
-    if @person.type == 'Trainee'
-      render :'people/trainee_form'
-    elsif @person.type == 'Instructor'
-      render :'people/instructor_form'
-    end
+    render :'people/type'
+    # if @person.type == 'Trainee'
+    #   render :'people/trainee_form'
+    # elsif @person.type == 'Instructor'
+    #   render :'people/instructor_form'
+    # end
   end
 
 	post :create, :map => '' do
