@@ -1,1 +1,2 @@
-instructor.rb
+class Instructor < Person
+end

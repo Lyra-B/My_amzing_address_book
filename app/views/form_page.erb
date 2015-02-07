@@ -25,6 +25,11 @@
 	  <%= form.text_field :email %>
 	<%end%>
 	
+	<% field_set_tag do %>
+		<%= form.label :type %>
+	  <%= form.select(:type, :options => ['Instructor', 'Trainee']) %>
+	<%end%>
+
 	<%= form.submit "Save"%>
 
 <%end%>
