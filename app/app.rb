@@ -7,13 +7,6 @@ module MyAmazingAddressBook
     set :protect_from_csrf, false
     enable :sessions
 
-    get '/' do
-      "This is the homepage"
-      # def show_people
-      # end
-    end
-
-
     ##
     # Caching support.
     #

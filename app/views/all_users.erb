@@ -1,0 +1,22 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<table>
+		<tr>
+	<% @users.first.attributes.keys.each do |header|%>
+		<th><%=header%></th>
+	<%end%>
+	<% @users.each do |user| %>
+	</tr>
+		<tr>
+			<%user.attributes.values.each do |value|%>
+			<td><%=value%></td>
+	  	<%end%>
+		</tr>
+	<%end%>
+
+	</table>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<% form_for @user, "/login" do |form|%>
+<% form_for @user, url_for(:person, :sign_up)do |form|%>
 	<% field_set_tag do %>
 	  <%= form.label :username %>
 	  <%= form.text_field :username%>

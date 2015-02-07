@@ -2,6 +2,49 @@ require 'pry'
 
 MyAmazingAddressBook::App.controllers :person do	
 
+
+  get :homepage, :map => '' do
+    render :homepage
+  end
+
+  get :sign_up, :map => 'person/sign_up' do
+    @user = User.new
+    flash[:notice]
+    render :user_new
+  end
+
+  post :sign_up do
+    @user = User.new(params[:user])
+    @user.save
+    flash[:notice] = "Signing up successful. Now please login!"
+    redirect '/person/login'
+  end
+
+  get :login do
+    @user = User.new
+    flash[:notice]
+    erb :login
+  end
+
+  post :login do
+    binding.pry
+    @user = User.find_by_username(params[:user][:username])
+    binding.pry
+    if @user && params[:user][:password] == @user.password
+      session[:logged_in] = true
+      flash[:notice] = "You are successfully logged in"
+      redirect 'person/all'
+    else
+      flash[:notice] = "Username or password wrong.Try again!"
+      redirect '/person/login'
+    end
+  end
+
+  get :users_all do
+    @users = User.all
+    render :all_users
+  end
+
   get :all do
   	@people = Person.all
   	render :all #'/people/all'
@@ -16,23 +59,16 @@ MyAmazingAddressBook::App.controllers :person do
 		@person = Person.new(params[:person])
     @person.save
 	  redirect "/person/#{@person.id}"
-    #flash[:notice] = "Person #{@person.first_name} "
 	end
 
   get :edit, :map => 'person/:id/edit' do
-    #binding.pry
     @person = Person.find(params[:id])
-    #binding.pry
     render :edit
   end
 
   put :update, :map => 'person/:id' do
-    #binding.pry
     @person = Person.find(params[:id])
-    #binding.pry
     @person.update(params[:person])
-    #(:first_name => params[:first_name], :last_name => params[:last_name],:email => params[:email],:phone => params[:phone], :twitter => params[:twitter])
-    #binding.pry
     redirect "/person/#{@person.id}"
   end
 
@@ -42,6 +78,7 @@ MyAmazingAddressBook::App.controllers :person do
     redirect '/'
   end
 
+  
   # get :login do
   #   @user = User.new
   #   flash[:notice]

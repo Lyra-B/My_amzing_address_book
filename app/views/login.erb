@@ -1,4 +1,6 @@
-<% form_for @user, "/login" do |form|%>
+<%=flash[:notice]%>
+
+<% form_for @user, url_for(:person, :login) do |form|%>
 	<% field_set_tag do %>
 	  <%= form.label :username %>
 	  <%= form.text_field :username%>
