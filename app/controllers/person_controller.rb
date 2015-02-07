@@ -57,7 +57,7 @@ MyAmazingAddressBook::App.controllers :person do
 
   post :add_fields, :map => '/person/add_fields' do
     @person = Person.new(params[:person])
-    binding.pry
+    #binding.pry
     if @person.type == 'Trainee'
       render :'people/trainee_form'
     elsif @person.type == 'Instructor'
@@ -66,7 +66,9 @@ MyAmazingAddressBook::App.controllers :person do
   end
 
 	post :create, :map => '' do
-		@person = Person.new(params[:person])
+    #binding.pry
+
+		@person = Person.new(params[:trainee] || params[:instructor])
     @person.save
 	  redirect "/person/#{@person.id}"
 	end
