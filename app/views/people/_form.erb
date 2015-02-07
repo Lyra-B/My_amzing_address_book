@@ -1,0 +1,29 @@
+  <% field_set_tag do %>
+	  <%= form.label :first_name %>
+	  <%= form.text_field :first_name%>
+	<%end%>
+
+	<% field_set_tag do %>
+		<%= form.label :last_name %>
+	  <%= form.text_field :last_name%>
+	<%end%>
+
+	<% field_set_tag do %>
+		<%= form.label :phone %>
+	  <%= form.text_field :phone %>
+	<%end%>
+
+	<% field_set_tag do %>
+		<%= form.label :twitter %>
+	  <%= form.text_field :twitter %>
+	<%end%>
+
+	<% field_set_tag do %>
+		<%= form.label :email %>
+	  <%= form.text_field :email %>
+	<%end%>
+
+	<% field_set_tag do %>
+		<%= form.label :type %>
+	  <%= form.select(:type, :options => ['Instructor', 'Trainee']) %>
+	<%end%>
