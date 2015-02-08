@@ -1,0 +1,14 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<%= link_to "Create a new entry", url_for(:person, :new)%>
+	<%= link_to "See all entries", url_for(:person, :all)%>
+
+	<p>
+		Search by last name
+		<%= link_to "", url_for(:person, :login)%>
+	</p>
+</body>
+</html>
