@@ -1,4 +1,5 @@
 require 'pry'
+require 'active_support'
 
 MyAmazingAddressBook::App.controllers :person do	
   #Action Controller Overview '#8'
@@ -103,6 +104,20 @@ MyAmazingAddressBook::App.controllers :person do
     @person = Person.find(params[:id])
     render :'people/person'
     #redirect "/person/#{@person.id}/edit"
+  end
+
+  get :lastname, :map => 'person/lastname/:letter' do
+    @people = Person.all.select do |person|
+      person if person.last_name.start_with?(params[:letter])
+    end
+    if @people.nil?
+      [404, {}, ["Person not found"]]
+    end
+    # @lastname = Person.last_name.start
+    #@person = Person.find_by_last_name(P)
+    # if 
+    #binding.pry
+    render :'people/find_by_lastname'
   end
 
   delete :destroy, :map => 'person/:id' do

@@ -1,0 +1,22 @@
+<html>
+<head>
+	<title>Entries starting with <%= "#{params[:letter]}" %></title>
+</head>
+<body>
+	<table>
+			<tr>
+		<% @people.first.attributes.keys.each do |header|%>
+			<th><%=header%></th>
+		<%end%>
+		<% @people.each do |person| %>
+		</tr>
+			<tr>
+				<%person.attributes.values.each do |value|%>
+				<td><%=value%></td>
+		  	<%end%>
+			</tr>
+		<%end%>
+
+		</table>
+</body>
+</html>
