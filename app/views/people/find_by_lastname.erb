@@ -4,19 +4,19 @@
 </head>
 <body>
 	<table>
-			<tr>
-		<% @people.first.attributes.keys.each do |header|%>
-			<th><%=header%></th>
-		<%end%>
-		<% @people.each do |person| %>
+		<tr>
+			<% @people.first.attributes.keys.each do |header|%>
+				<th><%=header%></th>
+			<%end%>
 		</tr>
-			<tr>
-				<%person.attributes.values.each do |value|%>
-				<td><%=value%></td>
-		  	<%end%>
-			</tr>
-		<%end%>
-
-		</table>
+	  <% @people.each do |person| %>
+		  <tr>
+			  <%person.attributes.values.each do |value|%>
+			    <td><%=value%></td>
+	  	  <%end%>
+		  </tr>
+	  <% end %>
+	</table>
+	<%= link_to "Back", url_for(:person, :index)%>
 </body>
 </html>

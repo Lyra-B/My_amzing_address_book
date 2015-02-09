@@ -5,18 +5,17 @@
 <body>
 	<table>
 		<tr>
-	<% @people.first.attributes.keys.each do |header|%>
-		<th><%=header%></th>
-	<%end%>
-	<% @people.each do |person| %>
-	</tr>
-		<tr>
-			<%person.attributes.values.each do |value|%>
-			<td><%=value%></td>
-	  	<%end%>
+			<% @people.first.attributes.keys.each do |header|%>
+				<th><%=header%></th>
+			<%end%>
 		</tr>
-	<%end%>
-
+	  <% @people.each do |person| %>
+		  <tr>
+			  <%person.attributes.values.each do |value|%>
+			    <td><%=value%></td>
+	  	  <%end%>
+		  </tr>
+	  <%end%>
 	</table>
 </body>
 </html>

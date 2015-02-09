@@ -4,15 +4,19 @@ require 'active_support'
 MyAmazingAddressBook::App.controllers :person do	
   #Action Controller Overview '#8'
   # before_action :require_login
- 
-  # private
- 
-  # def require_login
-  #   unless logged_in?
-  #     flash[:error] = "You must be logged in to access this section"
-  #     redirect_to new_login_url # halts request cycle
-  #   end
-  # end
+  # skip_before_action :require_login, only: [:login, :sign_up, :homepage]
+
+  before :except => :homepage do
+    def require_login
+      # binding.pry
+      unless session[:logged_in] || request.path.include?('/login') || request.path.include?('/sign_up') 
+        flash[:notice] = "You must be logged in to access this section"
+        redirect '/login' # halts request cycle
+      end
+    end
+    require_login
+  end
+
 
   get :homepage, :map => '' do
     render :'people/homepage'
@@ -44,21 +48,24 @@ MyAmazingAddressBook::App.controllers :person do
     if @user && params[:user][:password] == @user.password
       session[:logged_in] = true
       flash[:notice] = "You are successfully logged in"
-      redirect 'person/menu'
+      redirect 'person/index'
     else
+      session[:logged_in] = false
       flash[:notice] = "Username or password wrong.Try again!"
       redirect '/person/login'
     end
   end
 
-  get :menu do
+  get :index , :map => 'person/index' do
+    @user = User.new
+    flash[:notice]
     render :'people/menu'
   end
 
-  get :users_all do
-    @users = User.all
-    render :'people/all_users'
-  end
+  # get :users_all do
+  #   @users = User.all
+  #   render :'people/all_users'
+  # end
 
   get :all do
   	@people = Person.all
@@ -103,27 +110,26 @@ MyAmazingAddressBook::App.controllers :person do
   get :show, :map => 'person/:id' do 
     @person = Person.find(params[:id])
     render :'people/person'
-    #redirect "/person/#{@person.id}/edit"
   end
 
   get :lastname, :map => 'person/lastname/:letter' do
     @people = Person.all.select do |person|
-      person if person.last_name.start_with?(params[:letter])
+      person.last_name.start_with?(params[:letter])
     end
-    if @people.nil?
-      [404, {}, ["Person not found"]]
+    if @people.blank?
+      flash[:notice] = "No matches!"
+      redirect 'person/index'
     end
-    # @lastname = Person.last_name.start
-    #@person = Person.find_by_last_name(P)
-    # if 
-    #binding.pry
-    render :'people/find_by_lastname'
+    render :'people/find_by_lastname' 
   end
 
   delete :destroy, :map => 'person/:id' do
     #binding.pry
     @person = Person.find(params[:id])
     @person.destroy
-    redirect 'person/menu'
+    redirect 'person/index'
   end
 end
+
+
+
