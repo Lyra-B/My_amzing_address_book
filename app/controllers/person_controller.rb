@@ -1,21 +1,21 @@
 require 'pry'
 require 'active_support'
 
-MyAmazingAddressBook::App.controllers :person do	
+MyAmazingAddressBook::App.controllers :person do
   #Action Controller Overview '#8'
   # before_action :require_login
   # skip_before_action :require_login, only: [:login, :sign_up, :homepage]
 
-  before :except => :homepage do
-    def require_login
-      # binding.pry
-      unless session[:logged_in] || request.path.include?('/login') || request.path.include?('/sign_up') 
-        flash[:notice] = "You must be logged in to access this section"
-        redirect '/login' # halts request cycle
-      end
-    end
-    require_login
-  end
+  # before :except => :homepage do
+  #   def require_login
+  #     # binding.pry
+  #     unless session[:logged_in] || request.path.include?('/login') || request.path.include?('/sign_up')
+  #       flash[:notice] = "You must be logged in to access this section"
+  #       redirect '/login' # halts request cycle
+  #     end
+  #   end
+  #   require_login
+  # end
 
 
   get :homepage, :map => '' do
@@ -107,20 +107,22 @@ MyAmazingAddressBook::App.controllers :person do
     redirect "/person/#{@person.id}"
   end
 
-  get :show, :map => 'person/:id' do 
+  get :show, :map => 'person/:id' do
     @person = Person.find(params[:id])
     render :'people/person'
   end
 
   get :lastname, :map => 'person/lastname/:letter' do
-    @people = Person.all.select do |person|
-      person.last_name.start_with?(params[:letter])
-    end
+    #binding.pry
+    @people = Person.where("last_name LIKE '#{params[:letter]}%'")
+    # @people = Person.all.select do |person|
+    #   person.last_name.start_with?(params[:letter])
+    # end
     if @people.blank?
       flash[:notice] = "No matches!"
       redirect 'person/index'
     end
-    render :'people/find_by_lastname' 
+    render :'people/find_by_lastname'
   end
 
   delete :destroy, :map => 'person/:id' do
