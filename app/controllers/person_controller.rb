@@ -90,7 +90,6 @@ MyAmazingAddressBook::App.controllers :person do
 
 	post :create, :map => '' do
     #binding.pry
-
 		@person = Person.new(params[:trainee] || params[:instructor])
     @person.save
 	  redirect "/person/#{@person.id}"
@@ -103,7 +102,8 @@ MyAmazingAddressBook::App.controllers :person do
 
   put :update, :map => 'person/:id' do
     @person = Person.find(params[:id])
-    @person.update(params[:person])
+    #binding.pry
+    @person.update(params[:trainee] || params[:instructor])
     redirect "/person/#{@person.id}"
   end
 

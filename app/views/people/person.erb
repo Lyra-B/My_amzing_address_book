@@ -13,11 +13,9 @@
 		<% end %>
 	</tr>
 	</table>
-	<%= button_to "Update", url_for(:person, :edit, @person.id) %>
-
+	<%= link_to "Edit", url_for(:person, :edit, @person.id) %>
 <!-- 	http://archive.railsforum.com/viewtopic.php?id=38460 -->
 <!-- link_to cannot support any other method than get? -->
-
 <!-- 	http://www.padrinorb.com/api/Padrino/Helpers/AssetTagHelpers.html#button_to-instance_method -->
 	<%= button_to "Delete", url_for(:person, :destroy, @person.id), :method => :delete %>
 </body>

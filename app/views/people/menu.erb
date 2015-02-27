@@ -6,12 +6,13 @@
 	<%= flash[:notice] %>
 	<h2>
 		<% ("A".."Z").each do |letter| %>
-	  	<%= link_to letter, url_for(:person, :lastname, letter)%> 
+	  	<%= link_to letter, url_for(:person, :lastname, letter)%>
 	  <% end %></br>
 	</h2>
 	<h3>
-		<%= link_to "Create a new entry", url_for(:person, :new)%></br>
+		<%= link_to "Create a new person", url_for(:person, :new)%></br>
 	</h3>
+
 	<h3>
 		<%= link_to "See all entries", url_for(:person, :all)%>
 	</h3>
